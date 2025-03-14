@@ -8,6 +8,7 @@ import Int "mo:base/Int";
 import Char "mo:base/Char";
 import Option "mo:base/Option";
 import Array "mo:base/Array";
+import enum "mo:base/Array";
 
 actor RegistroCalificaciones {
   type Materia = {
@@ -27,7 +28,7 @@ actor RegistroCalificaciones {
     appat: Text;
     apmat: Text;
     grado: Int;
-    grupo: Char;
+    grupo: Text;
     carreraId: Text;
   };
 
@@ -45,11 +46,11 @@ actor RegistroCalificaciones {
     return "Carrera Registrada Con Éxito";
   };
 
-  public shared ({ caller }) func registrarEstudiante(nombre: Text, appat: Text, apmat: Text, grado: Int, grupo: Char, carreraId: Text): async Text {
+  public shared ({ caller }) func registrarEstudiante(nombre: Text, appat: Text, apmat: Text, grado: Int, grupo: Text, carreraId: Text): async Text {
     switch (carreras.get(carreraId)) {
       case (?carrera) {
         estudiantes.put(caller, {id = caller; nombre = nombre; appat = appat; apmat = apmat; grado = grado; grupo = grupo; carreraId = carreraId});
-        return "Estudiante registrado con éxito en la carrera ${carrera.nombre}";
+        return "Estudiante registrado con éxito en la carrera: " # carrera.nombre;
       };
       case null return "¡ERROR! ¡Esta carrera no existe!";
     }

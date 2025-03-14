@@ -11,4 +11,4 @@ export async function verCalificacion() {
 
 export async function agregarCalificacion(materiaId, calif) {
     return await registroCanister.agregarCalificacion(materiaId, calif);   
-}
+};
